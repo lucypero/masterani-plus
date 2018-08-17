@@ -1,0 +1,143 @@
+@import "modules/reset";
+* {
+  box-sizing: border-box;
+}
+
+html{
+  margin: 0;
+  
+}
+
+image {
+  max-width: 100%;
+}
+
+body {
+  width: 400px;
+  margin:0; 
+}
+
+//For Firefox only
+@supports (-moz-appearance:none) {
+  html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+  }
+  body{
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-size: 75%;
+  } 
+}
+
+ul {
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+  text-align: center;
+  position: relative;
+  border-bottom: solid 1px rgb(221, 221, 221);
+  transition: background-color 0.2s;
+}
+
+ul li:last-child{
+  border-bottom: none;
+}
+
+ul li:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 20px 14px;
+}
+
+.anime {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  /* justify-content: center; */
+}
+.name-ep {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.ep {
+  font-size: 0.7rem;
+  margin: 5px 0;
+  color: rgba(0,0,0,0.6);
+}
+#clear {
+  width:100%;
+  text-align: center;
+  background:red;
+  cursor:pointer;
+  padding:20px 0;
+}
+#object-log {
+  padding: 10px;
+  word-wrap: break-word;
+}
+ul li:hover .delete{
+  opacity: 0.5;
+}
+.delete{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top:5px;
+  right: 5px;
+  cursor: pointer;
+  background: white;
+  border-radius: 50%;
+  opacity:0;
+  transition: opacity .3s;
+}
+ul li:hover .delete:hover {
+  opacity: 1;
+}
+
+.delete svg {
+  width: 100%;
+  height: 100%;
+}
+.cover-img{
+  flex-basis: calc(75px + 4px * 2);
+  flex-shrink: 0;
+  height: calc(106px + 4px * 2);
+  background: #ccc;            
+  position: relative;
+}
+.placeholder{
+  position: absolute;
+  border: solid 4px rgb(255, 146, 146);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.cover-img img {
+  width:100%;
+  height:100%;
+  border: solid 4px rgb(255, 146, 146);
+  transition: border .3s;
+}
+.cover-img img:hover {
+  border: solid 4px rgb(255, 103, 103);
+}
+.empty-msg a{
+  display:inline;
+  text-decoration: underline;
+  padding: 0;
+  color: rgb(228, 27, 27);
+}
+.empty-msg {
+  font-size: 1rem;
+  padding: 20px;
+}
