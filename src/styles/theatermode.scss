@@ -1,0 +1,40 @@
+.ui.embed {
+  position: fixed !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 200% !important;
+  height: 100% !important;
+}
+
+body:hover {
+  .ui.inverted.fixed.top.borderless.menu, .actions, .info {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.ui.inverted.fixed.top.borderless.menu {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.row.anime-info, .ui.master.header {
+  visibility: hidden;
+}
+
+.info {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.actions {
+  display: none !important;
+}
+
+.ui.master.button {
+  visibility: hidden;
+}

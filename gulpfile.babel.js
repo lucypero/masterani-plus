@@ -22,7 +22,8 @@ var manifest = {
     "background": {
       "scripts": [
         "scripts/livereload.js",
-        "scripts/background.js"
+        "scripts/background.js",
+        "scripts/bg.js"
       ]
     }
   },
@@ -138,14 +139,20 @@ function mergeAll(dest) {
 
 function buildJS(target) {
   const files = [
-    'background.js',
     'contentscript.js',
     'options.js',
     'popup.js',
-    'livereload.js'
+    'mp4.js',
+    'autoplay.js',
+    'bg.js',
+    'theatermode.js'
+  ]
+  const devFiles = [
+    'background.js',
+    'livereload.js',
   ]
 
-  let tasks = files.map( file => {
+  let tasks = files.concat(devFiles).map( file => {
     return browserify({
       entries: 'src/scripts/' + file,
       debug: true
@@ -166,7 +173,8 @@ function buildJS(target) {
         "ascii_only": true
       } 
     })))
-    .pipe(gulp.dest(`build/${target}/scripts`));
+
+    .pipe(gulpif((production && !devFiles.includes(file)) || !production,gulp.dest(`build/${target}/scripts`)));
   });
 
   return merge.apply(null, tasks);

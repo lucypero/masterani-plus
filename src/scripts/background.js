@@ -2,6 +2,7 @@ import ext from "./utils/ext";
 
 ext.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    console.log('got message lol')
     if(request.action === "perform-save") {
       console.log("Extension Type: ", "/* @echo extension */");
       console.log("PERFORM AJAX", request.data);
@@ -10,3 +11,4 @@ ext.runtime.onMessage.addListener(
     }
   }
 );
+

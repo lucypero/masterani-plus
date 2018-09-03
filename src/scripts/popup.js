@@ -95,4 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function getLatestEpUrl(anime, ep){
       return "https://www.masterani.me/anime/watch/"+anime+"/"+ep;
   }
+
+
+  //options button
+  require('./optionsButton')()
 });
