@@ -1,6 +1,6 @@
 'use strict';
 
-import ext from "./utils/ext";
+import ext from "../utils/ext";
 
 var LIVERELOAD_HOST = 'localhost:';
 var LIVERELOAD_PORT = 35729;

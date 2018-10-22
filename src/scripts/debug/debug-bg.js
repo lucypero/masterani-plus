@@ -1,4 +1,4 @@
-import ext from "./utils/ext";
+import ext from "../utils/ext";
 
 ext.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {

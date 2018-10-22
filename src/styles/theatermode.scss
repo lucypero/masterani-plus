@@ -9,12 +9,41 @@
 }
 
 body:hover {
-  .ui.inverted.fixed.top.borderless.menu, .actions, .info {
-    visibility: visible;
-    opacity: 1;
+  .row.anime-info {
+    // visibility: visible;
+    // opacity: 1;
   }
 }
 
+.ui.grid.container {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.row.anime-info {
+  background: black;
+}
+
+.row:not(.anime-video) {
+  // visibility: hidden; <- THIS MAKES THE AUTOPLAY NOT WORK
+  display: none !important;
+}
+
+#navigation {
+  display: none;
+}
+
+#watch>.ui.grid>.anime-video .options {
+  // width: calc(200% - 2rem)
+  left:0;
+  width: 100%;
+}
+
+.ui.grid>.row.anime-video {
+  padding: 0;
+}
+
+/*
 .ui.inverted.fixed.top.borderless.menu {
   visibility: hidden;
   opacity: 0;
@@ -37,4 +66,8 @@ body:hover {
 
 .ui.master.button {
   visibility: hidden;
+}*/
+
+#disqus_thread, .hero-726x90 {
+  display: none;
 }

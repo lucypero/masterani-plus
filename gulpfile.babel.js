@@ -21,9 +21,8 @@ var manifest = {
   dev: {
     "background": {
       "scripts": [
-        "scripts/livereload.js",
-        "scripts/background.js",
-        "scripts/bg.js"
+        "scripts/debug/livereload.js",
+        "scripts/debug/debug-bg.js",
       ]
     }
   },
@@ -34,11 +33,17 @@ var manifest = {
         "id": "masteraniplus@matiaspier.addons.mozilla.org",
         "strict_min_version": "42.0"
       }
+    },
+    "options_ui": {
+      "browser_style": true
     }
   },
 
   chrome: {
-    "update_url": "https://clients2.google.com/service/update2/crx"
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "options_ui": {
+      "chrome_style": true
+    }
   }
 }
 
@@ -84,23 +89,28 @@ gulp.task('styles', () => {
     .pipe(gulp.dest(`build/${target}/styles`));
 });
 
+let mergeJsonOpt = (endObj) => { return {
+    fileName: "manifest.json",
+    jsonSpace: " ".repeat(4),
+    endObj: endObj,
+    customizer: (objA, objB) => {
+      // Example: Concat arrays but only keep unique values
+      if (Array.isArray(objA) && Array.isArray(objB)) {
+        return objA.concat(objB).filter((item, index, array) => (
+          array.indexOf(item) === index
+        ));
+      }
+
+      return undefined;
+    }
+  }
+}
+
 gulp.task("manifest", () => {
   return gulp.src('./manifest.json')
-    .pipe(gulpif(!production, $.mergeJson({
-      fileName: "manifest.json",
-      jsonSpace: " ".repeat(4),
-      endObj: manifest.dev
-    })))
-    .pipe(gulpif(target === "firefox", $.mergeJson({
-      fileName: "manifest.json",
-      jsonSpace: " ".repeat(4),
-      endObj: manifest.firefox
-    })))
-    .pipe(gulpif(target === "chrome", $.mergeJson({
-      fileName: "manifest.json",
-      jsonSpace: " ".repeat(4),
-      endObj: manifest.chrome
-    })))
+    .pipe(gulpif(!production, $.mergeJson(mergeJsonOpt(manifest.dev))))
+    .pipe(gulpif(target === "firefox", $.mergeJson(mergeJsonOpt(manifest.firefox))))
+    .pipe(gulpif(target === "chrome", $.mergeJson(mergeJsonOpt(manifest.chrome))))
     .pipe(gulp.dest(`./build/${target}`))
 });
 
@@ -140,16 +150,13 @@ function mergeAll(dest) {
 function buildJS(target) {
   const files = [
     'contentscript.js',
-    'options.js',
     'popup.js',
     'mp4.js',
-    'autoplay.js',
-    'bg.js',
-    'theatermode.js'
+    'options.js'
   ]
   const devFiles = [
-    'background.js',
-    'livereload.js',
+    'debug/debug-bg.js',
+    'debug/livereload.js',
   ]
 
   let tasks = files.concat(devFiles).map( file => {

@@ -8,29 +8,25 @@
   "content_scripts": [
     {
       "matches": ["https://www.masterani.me/anime/watch/*"],
-      "js": [ "scripts/contentscript.js"]
-    },
-    {
-      "all_frames": true,
-      "js": [ "scripts/mp4.js"],
-      "matches": [ "https://mp4upload.com/*"],
+      "js": ["scripts/contentscript.js"],
       "match_about_blank": true,
+      "all_frames": true,
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://www.masterani.me/anime/watch/*"],
-      "js": ["scripts/theatermode.js"],
+      "matches": ["https://mp4upload.com/*"],
+      "js": ["scripts/mp4.js"],
       "match_about_blank": true,
-      "all_frames": true,
+      "all_frames": true,     
       "run_at": "document_idle"
     }
   ],
   "permissions": [
-      "storage",
-      "activeTab",
-      "tabs",
-      "https://www.masterani.me/*",
-      "https://mp4upload.com/*"
+    "storage",
+    "activeTab",
+    "tabs",
+    "https://www.masterani.me/*",
+    "https://mp4upload.com/*"
   ],
   "icons": { 
     "16": "icons/icon-16.png",
@@ -45,10 +41,8 @@
     "default_popup": "popup.html",
     "default_title": "Your Anime"
   },
-  "background": {
-      "scripts": [
-          "scripts/bg.js"
-      ]
+  "options_ui": {
+    "page": "options.html"
   },
   "web_accessible_resources": ["styles/theatermode.css"]
 }

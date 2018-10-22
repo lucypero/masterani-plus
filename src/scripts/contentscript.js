@@ -1,3 +1,7 @@
+/**
+ * This is the script that runs on the masterani page
+ */
+
 import storage from "./utils/storage";
 
 var idAndEp = window.location.href.substr(37).split("/");
@@ -58,3 +62,10 @@ function isEmpty(obj) {
     }
     return true;
 }
+
+//Added features by septomor here
+
+//autoplay feature
+require('./autoplay')()
+//theater mode feature
+require('./theatermode')()
