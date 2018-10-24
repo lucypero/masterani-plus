@@ -8,6 +8,7 @@ import preprocessify from 'preprocessify';
 import gulpif from "gulp-if";
 
 const $ = require('gulp-load-plugins')();
+var runSequence = require('run-sequence');
 
 var production = process.env.NODE_ENV === "production";
 var target = process.env.TARGET || "chrome";
@@ -53,15 +54,16 @@ gulp.task('clean', () => {
 })
 
 gulp.task('build', (cb) => {
-  $.runSequence('clean', 'styles', 'ext', cb)
-});
+  runSequence('clean', 'styles', 'ext', cb)
+})
 
 gulp.task('watch', ['build'], () => {
   $.livereload.listen();
 
   gulp.watch(['./src/**/*']).on("change", () => {
-    $.runSequence('build', $.livereload.reload);
+    runSequence('build', $.livereload.reload);
   });
+  // gulp.watch(['./src/**/*'], gulp.series('build', 'reload'))
 });
 
 gulp.task('default', ['build']);
@@ -119,9 +121,9 @@ gulp.task("manifest", () => {
 // -----------------
 // DIST
 // -----------------
-gulp.task('dist', (cb) => {
-  $.runSequence('build', 'zip', cb)
-});
+gulp.task('dist',(cb)=>{
+  runSequence('build','zip', cb)
+})
 
 gulp.task('zip', () => {
   return pipe(`./build/${target}/**/*`, $.zip(`${target}.zip`), './dist')

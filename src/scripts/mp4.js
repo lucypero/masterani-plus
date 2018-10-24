@@ -16,22 +16,6 @@ storage.get([storageVars.autoplay], function(result){
 })
 
 /*
-*   Detect any changes in popup.html, this message is from background.js
-*/
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if(request.enableAutoplayToggle){
-    storage.get([storageVars.autoplay], function(result){
-      enableAutoplay = result[storageVars.autoplay]
-    })
-  }
-})
-
-window.parent.postMessage("hihi message from mp4.js", "https://www.masterani.me/*")
-
-
-
-
-/*
 *   addEventListener to the video, fires when video ends. If autoplay is true,
 *   will fire a message to background.js that triggers autoplay.js
 */

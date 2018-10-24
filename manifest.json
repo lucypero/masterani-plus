@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "default_locale": "en",
   "name": "Masterani Plus",
   "description": "Masterani Anime helper extension. It tracks the anime you watch, and it remembers the last episode you watched of each show.",

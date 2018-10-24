@@ -22,10 +22,7 @@ function restoreOptions() {
 document.addEventListener('change', function(e){
   if(e.target.type || e.target.type === "checkbox"){
     let chboxField = storagePairs[e.target.id];
-    let obj = {};
-    obj[chboxField] = e.target.checked;
-    console.log(obj)
-    storage.set(obj)
+    storage.set({[chboxField]:e.target.checked})    
   }
 })
 document.addEventListener('DOMContentLoaded', restoreOptions);

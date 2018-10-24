@@ -1,5 +1,6 @@
 import { storageVars } from "./constants";
 import storage from "./utils/storage";
+import ext from "./utils/ext";
 
 //This runs on the masterani page
 module.exports = () => {
@@ -13,29 +14,12 @@ module.exports = () => {
   let link = document.createElement('link')
   link.type = "text/css"
   link.rel = "stylesheet"
-  link.href = chrome.extension.getURL("styles/theatermode.css")
-
-  console.log('woah')
-
+  link.href = ext['extension'].getURL("styles/theatermode.css")
+  
   storage.get([storageVars.theaterMode], function(result){
     enableTheaterMode = result[storageVars.theaterMode]
-    console.log('enbla ', enableTheaterMode)
     if(enableTheaterMode){
       toggleThMode(true)
-    }
-  })
-
-  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    console.log("theater mode on message")
-    if(request.enableTheaterModeToggle){
-      storage.get([storageVars.theaterMode], function(result){
-        enableTheaterMode = result[storageVars.theaterMode]
-        if(enableTheaterMode){
-          toggleThMode(true)
-        } else {
-          toggleThMode(false)
-        }
-      })
     }
   })
 
