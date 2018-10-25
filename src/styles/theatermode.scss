@@ -8,13 +8,6 @@
   height: 100% !important;
 }
 
-body:hover {
-  .row.anime-info {
-    // visibility: visible;
-    // opacity: 1;
-  }
-}
-
 .ui.grid.container {
   margin: 0 !important;
   width: 100% !important;
@@ -43,31 +36,27 @@ body:hover {
   padding: 0;
 }
 
-/*
-.ui.inverted.fixed.top.borderless.menu {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-}
-
-.row.anime-info, .ui.master.header {
-  visibility: hidden;
-}
-
-.info {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-}
-
-.actions {
-  display: none !important;
-}
-
-.ui.master.button {
-  visibility: hidden;
-}*/
-
 #disqus_thread, .hero-726x90 {
   display: none;
+}
+
+//Anime info element
+#anime-info {
+  position: absolute;
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  // opacity: 0;
+  transition: opacity .2s;
+  background: black;
+  padding: 5px 10px;
+  border-radius: 6px;
+  display:flex;
+  align-items: center;
+}
+
+.ui.embed:hover{
+  #anime-info {
+    opacity:0.7;
+  }
 }
