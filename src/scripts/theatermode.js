@@ -1,13 +1,15 @@
 import { storageVars } from "./constants";
 import storage from "./utils/storage";
 import ext from "./utils/ext";
-import mast from "./masteraniUtils";
+import mast from "./utils/masteraniUtils";
+import domT from "./utils/domTools";
 
 //This runs on the masterani page
 function afterContentLoad() {
   let enableTheaterMode
   let infoElement;
   let playerElem = document.querySelector('.ui.embed')
+  let hostsTopBar = document.querySelector('#watch>.ui.grid>.anime-video .options')
 
   let head = document.head
   let link = document.createElement('link')
@@ -23,6 +25,30 @@ function afterContentLoad() {
   })
 
   addTopToggleButton();
+
+  // let inact = inactDetect(1000,
+  //   () => {
+  //     console.log('idle for 1 sec');
+  //   },
+  //   () => {
+  //     console.log('mouse moved');
+  //   }
+  // );
+  window.addEventListener('message', function(e){
+    if(e.origin !== 'https://mp4upload.com')
+      return
+
+    switch(e.data) {
+      case 'user active':
+        domT.addClass(hostsTopBar,"hover")
+        domT.addClass(infoElement,"hover")
+        break;
+      case 'user idle':
+        domT.removeClass(hostsTopBar,"hover")
+        domT.removeClass(infoElement,"hover")
+        break;
+    }
+  })
 
   function toggleThMode(activate) {
     if(activate){
@@ -63,6 +89,7 @@ function afterContentLoad() {
       */
       infoElement = document.createElement("div")
       infoElement.id = "anime-info"
+      infoElement.classList = "hover"
 
       let aClasses = "ui basic button small svg uppercase"
 
@@ -74,7 +101,7 @@ function afterContentLoad() {
 
       let elContent = document.createRange().createContextualFragment(
         `
-          <span class="info">${mast.getAnimeName(document)}
+          <span class="info">${cutWElips(mast.getAnimeName(document),35)}
            - Ep. ${mast.getEpNumber(document)}</span>
           ${getEpBtnMarkup(false)}
           ${getEpBtnMarkup(true)}
@@ -90,6 +117,14 @@ function afterContentLoad() {
     //Appending info element to the player
     playerElem.appendChild(infoElement)   
   }
+}
+
+//Cut String and add Elipsis if necessary
+function cutWElips(string, maxLength){
+  if(string.length > maxLength){
+    return string.slice(0,Math.max(maxLength-3,0))+"..."
+  }
+  return string;
 }
 
 module.exports = () => {

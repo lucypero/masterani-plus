@@ -1,4 +1,4 @@
-import { getNextEpUrl } from "./masteraniUtils";
+import { getNextEpUrl } from "./utils/masteraniUtils";
 
 module.exports = () => {
   window.addEventListener('message', function(e){
