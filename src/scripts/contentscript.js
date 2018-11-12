@@ -69,3 +69,5 @@ function isEmpty(obj) {
 require('./autoplay')()
 //theater mode feature
 require('./theatermode')()
+//hotkeys
+require('./hotkeys')()

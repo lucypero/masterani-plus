@@ -10,11 +10,15 @@
       "matches": ["https://www.masterani.me/anime/watch/*"],
       "js": ["scripts/contentscript.js"],
       "match_about_blank": true,
-      "all_frames": true,
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://mp4upload.com/*"],
+      "matches": ["https://mp4upload.com/embed*",
+                  "https://streamango.com/embed/*",
+                  "https://openload.co/embed/*",
+                  "https://tiwi.kiwi/embed*",
+                  "https://www.rapidvideo.com/e/*",
+                  "https://embed.mystream.to/*"],
       "js": ["scripts/mp4.js"],
       "match_about_blank": true,
       "all_frames": true,     
@@ -24,7 +28,6 @@
   "permissions": [
     "storage",
     "activeTab",
-    "tabs",
     "https://www.masterani.me/*",
     "https://mp4upload.com/*"
   ],

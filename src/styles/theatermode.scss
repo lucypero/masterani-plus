@@ -54,6 +54,10 @@
   display:flex;
   align-items: center;
 
+  span {
+    margin-right: 5px;
+  }
+
   &.hover {
     opacity:0.8;
   }

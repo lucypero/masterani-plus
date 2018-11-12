@@ -3,6 +3,7 @@ import storage from "./utils/storage";
 import ext from "./utils/ext";
 import mast from "./utils/masteraniUtils";
 import domT from "./utils/domTools";
+import { log } from "util";
 
 //This runs on the masterani page
 function afterContentLoad() {
@@ -35,17 +36,19 @@ function afterContentLoad() {
   //   }
   // );
   window.addEventListener('message', function(e){
+
+    console.log('got message from: ', e.origin, " message: ", e.data)
     if(e.origin !== 'https://mp4upload.com')
       return
 
     switch(e.data) {
       case 'user active':
-        domT.addClass(hostsTopBar,"hover")
-        domT.addClass(infoElement,"hover")
+        if(hostsTopBar) domT.addClass(hostsTopBar,"hover")
+        if(infoElement) domT.addClass(infoElement,"hover")
         break;
       case 'user idle':
-        domT.removeClass(hostsTopBar,"hover")
-        domT.removeClass(infoElement,"hover")
+        if(hostsTopBar) domT.removeClass(hostsTopBar,"hover")
+        if(infoElement)  domT.removeClass(infoElement,"hover")
         break;
     }
   })
@@ -67,7 +70,7 @@ function afterContentLoad() {
   function addTopToggleButton() {
     let rightMenu = document.getElementById('navigation').querySelector(".right.menu")
     let aElem = document.createElement("a");
-    let textNode = document.createTextNode("Toggle Theater Mode")
+    let textNode = document.createTextNode("Theater Mode")
     aElem.appendChild(textNode);
     aElem.onclick = () => toggleThMode(true)
     aElem.href = "#";
@@ -77,19 +80,9 @@ function afterContentLoad() {
 
   function appendInfoDiv() {
     if(!infoElement){
-      //Creating info element
-
-      /**
-       * You need to know
-       * - anime name
-       * - anime ep
-       * - if it has a prev ep
-       * - if it has a next ep
-       *  
-      */
       infoElement = document.createElement("div")
       infoElement.id = "anime-info"
-      infoElement.classList = "hover"
+      // infoElement.classList = "hover"
 
       let aClasses = "ui basic button small svg uppercase"
 

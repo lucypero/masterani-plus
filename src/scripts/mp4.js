@@ -2,6 +2,11 @@ import { storageVars } from "./constants";
 import storage from "./utils/storage";
 import inactDetect from "./utils/inactivity";
 
+//just testing
+window.parent.postMessage('injected :thumbsup:', "https://www.masterani.me/*")
+
+
+
 var enableAutoplay
 // video is the current HTML5 video tag
 var video = document.getElementsByClassName('jw-video')[0]
