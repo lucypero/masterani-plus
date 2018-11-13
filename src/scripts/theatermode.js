@@ -1,9 +1,8 @@
-import { storageVars } from "./constants";
+import { storageVars, streamingUrls, idleTime, decryptMsg } from "./constants";
 import storage from "./utils/storage";
 import ext from "./utils/ext";
 import mast from "./utils/masteraniUtils";
 import domT from "./utils/domTools";
-import { log } from "util";
 
 //This runs on the masterani page
 function afterContentLoad() {
@@ -27,31 +26,42 @@ function afterContentLoad() {
 
   addTopToggleButton();
 
-  // let inact = inactDetect(1000,
-  //   () => {
-  //     console.log('idle for 1 sec');
-  //   },
-  //   () => {
-  //     console.log('mouse moved');
-  //   }
-  // );
-  window.addEventListener('message', function(e){
-
-    console.log('got message from: ', e.origin, " message: ", e.data)
-    if(e.origin !== 'https://mp4upload.com')
-      return
-
-    switch(e.data) {
-      case 'user active':
-        if(hostsTopBar) domT.addClass(hostsTopBar,"hover")
-        if(infoElement) domT.addClass(infoElement,"hover")
-        break;
-      case 'user idle':
-        if(hostsTopBar) domT.removeClass(hostsTopBar,"hover")
-        if(infoElement)  domT.removeClass(infoElement,"hover")
-        break;
+  // Fade out when inactive functionality block
+  {
+    const showTheaterModeUI = () => {
+      if(hostsTopBar) domT.addClass(hostsTopBar,"hover")
+      if(infoElement) domT.addClass(infoElement,"hover")
     }
-  })
+
+    const hideTheaterModeUI = () => {
+      if(hostsTopBar) domT.removeClass(hostsTopBar,"hover")
+      if(infoElement)  domT.removeClass(infoElement,"hover")
+    }
+
+    let tout = setTimeout(hideTheaterModeUI, idleTime)
+
+    const resetTimer = () => {
+      showTheaterModeUI()
+      clearTimeout(tout)
+      tout = setTimeout(hideTheaterModeUI, idleTime)
+    }
+
+    document.addEventListener('mousemove', resetTimer)
+    document.addEventListener('keypress', resetTimer)
+
+    window.addEventListener('message', function(e){
+      // console.log('e origin:',e.origin)
+
+      if(!streamingUrls.includes(e.origin))
+        return;
+
+      let msg = decryptMsg(e.data)
+
+      if(msg === 'mousemove' ||
+         msg === 'keypress')
+          resetTimer();
+    })
+  }
 
   function toggleThMode(activate) {
     if(activate){

@@ -3,11 +3,12 @@
  */
 
 import storage from "./utils/storage";
+import { hotKeys } from "./hotkeys";
 
-var idAndEp = window.location.href.substr(37).split("/");
+let idAndEp = window.location.href.substr(37).split("/");
 
-var id = idAndEp[0];
-var epNum = idAndEp[1];
+let id = idAndEp[0];
+let epNum = idAndEp[1];
 
 if(idAndEp[1] !== "" && !isNaN(epNum)){
     //Store current episode
@@ -19,7 +20,7 @@ if(idAndEp[1] !== "" && !isNaN(epNum)){
             val.animeList = {};
         }
 
-        var anime = val.animeList[id];
+        let anime = val.animeList[id];
 
         if(!val.animeList.hasOwnProperty(id)){
             val.animeList[id] = {};
@@ -27,13 +28,13 @@ if(idAndEp[1] !== "" && !isNaN(epNum)){
         }
 
         if(!val.animeList.hasOwnProperty("coverImg")){
-            var image = document.querySelector(".anime-info .info .cover img");
+            let image = document.querySelector(".anime-info .info .cover img");
             anime.coverImg = image.getAttribute("src");
         }
 
         if(!val.animeList.hasOwnProperty("name")){
-            var animeNameEl = document.querySelector(".anime-info .info .details .info h1");
-            var animeName = animeNameEl.innerText || animeNameEl.textContent;
+            let animeNameEl = document.querySelector(".anime-info .info .details .info h1");
+            let animeName = animeNameEl.innerText || animeNameEl.textContent;
             anime.name = animeName;
         }
 
@@ -50,13 +51,13 @@ else if(epNum === "") {
         if(isEmpty(val))
             return;
 
-        var url = window.location.href.substr(0,37) + id + "/" + val.animeList[id].epNum;
+        let url = window.location.href.substr(0,37) + id + "/" + val.animeList[id].epNum;
         window.location.href = url;
     });
 }
 
 function isEmpty(obj) {
-    for(var key in obj) {
+    for(let key in obj) {
         if(obj.hasOwnProperty(key))
             return false;
     }
@@ -70,4 +71,4 @@ require('./autoplay')()
 //theater mode feature
 require('./theatermode')()
 //hotkeys
-require('./hotkeys')()
+hotKeys()

@@ -1,45 +1,64 @@
-import { storageVars } from "./constants";
+//This is the script that runs inside the video iframe on materani
+
+import { storageVars, masteraniURL, encryptMsg } from "./constants";
 import storage from "./utils/storage";
-import inactDetect from "./utils/inactivity";
 
 //just testing
-window.parent.postMessage('injected :thumbsup:', "https://www.masterani.me/*")
+// window.parent.postMessage('injected :thumbsup:', masteraniURL)
 
 
+/*  AUTOPLAY FEATURE - START  */
+// console.log('url current page:', window.location.href);
 
-var enableAutoplay
-// video is the current HTML5 video tag
-var video = document.getElementsByClassName('jw-video')[0]
+//Checking if we're on mp4upload
+if(/^https:\/\/www\.mp4upload\.com\/embed.*/.test()) {
+  implementAutoplay();
+}
 
-/*
-*   Recieve extensions data on enableAutoplay, a boolean based on popup.html checkbox
-*/
-storage.get([storageVars.autoplay], function(result){
-  enableAutoplay = result[storageVars.autoplay]
-  if(window != top && enableAutoplay){
-    video.play()
-  }
-})
+function implementAutoplay() {
+  let enableAutoplay
+  // video is the current HTML5 video tag
+  let video = document.getElementsByClassName('jw-video')[0]
+  if(!video)
+    return;
 
-/*
-*   addEventListener to the video, fires when video ends. If autoplay is true,
-*   will fire a message to background.js that triggers autoplay.js
-*/
-if(!video)
-  console.error('video not found')
-else
+  /*
+  *   Recieve extensions data on enableAutoplay, a boolean based on popup.html checkbox
+  */
+  storage.get([storageVars.autoplay], function(result){
+    enableAutoplay = result[storageVars.autoplay]
+    if(window != top && enableAutoplay){
+      video.play()
+    }
+  })
+
+  /*
+  *   addEventListener to the video, fires when video ends. If autoplay is true,
+  *   will fire a message to background.js that triggers autoplay.js
+  */
   video.addEventListener('ended', function(e){
     if(enableAutoplay)
-      window.parent.postMessage("video ended", "https://www.masterani.me/*")
+      window.parent.postMessage("video ended", masteraniURL)
   }, false)
+}
 
+/*  AUTOPLAY FEATURE - END  */
 
+/* INACTIVITY DETECTION - START */
 
-inactDetect(2000,
-  () => {
-    window.parent.postMessage('user idle', "https://www.masterani.me/*")
-  },
-  () => {
-    window.parent.postMessage('user active', "https://www.masterani.me/*")
-  }
-);
+document.addEventListener('mousemove', () => {
+  window.parent.postMessage(encryptMsg('mousemove'), masteraniURL)
+})
+document.addEventListener('keypress', () => {
+  window.parent.postMessage(encryptMsg('keypress'), masteraniURL)
+})
+
+/* INACTIVITY DETECTION - END */
+
+/* KEYDOWN REGISTRATION - START */
+
+document.addEventListener('keydown', (e) => {
+  window.parent.postMessage(encryptMsg(`keydown-${e.key}`), masteraniURL)
+})
+
+/* KEYDOWN REGISTRATION - END */
