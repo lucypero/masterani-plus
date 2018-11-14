@@ -24,7 +24,7 @@ module.exports = {
   },
   encryptMsg: msg => msg+'-'+messageHash,
   defaultHotkeys: {
-    'nextEp': 'p',
-    'prevEp': 'o'
+    'next-ep': 'P',
+    'prev-ep': 'O'
   }
 }

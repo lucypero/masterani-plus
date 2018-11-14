@@ -58,7 +58,16 @@ document.addEventListener('keypress', () => {
 /* KEYDOWN REGISTRATION - START */
 
 document.addEventListener('keydown', (e) => {
-  window.parent.postMessage(encryptMsg(`keydown-${e.key}`), masteraniURL)
+  window.parent.postMessage({
+    type:encryptMsg('keydown'),
+    value: {
+      key: e.key,
+      keyCode: e.keyCode,
+      ctrlKey: e.ctrlKey,
+      shiftKey: e.shiftKey,
+      altKey: e.altKey
+    }
+  }, masteraniURL)
 })
 
 /* KEYDOWN REGISTRATION - END */

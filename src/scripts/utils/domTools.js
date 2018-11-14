@@ -7,5 +7,11 @@ module.exports = {
   },  
   hasClass(el, className) {
       return el.classList.contains(className);
+  },
+  //for NodeList
+  addEventListener(nodeList, event, fn) {
+    for (let i = 0; i < nodeList.length; i++) {
+      nodeList[i].addEventListener(event, fn, false);
+    }
   }
 }

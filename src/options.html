@@ -11,6 +11,11 @@
       input[type="checkbox"] {
         margin-right: 5px;
       }
+      .set-hotkey {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     </style>
   </head>
 
@@ -25,6 +30,19 @@
         <div>
             <input id="ch-theater" type="checkbox" name="feature" value="theater-mode" />
             <label for="theater-mode">Theater Mode</label>
+        </div>
+        
+      </fieldset>
+      <br>
+      <fieldset id="hotkeys">
+        <legend>Hotkey Mappings</legend>
+        <div class="set-hotkey">
+          <label for="hk-next-ep">Go to Previous Episode:</label>
+          <input type="text" spellcheck="false" id='hk-prev-ep'>
+        </div>
+        <div class="set-hotkey">
+          <label for="hk-next-ep">Go to Next Episode:</label>
+          <input type="text" spellcheck="false" id='hk-next-ep'>
         </div>
       </fieldset>
     </form>

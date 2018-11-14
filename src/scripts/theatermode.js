@@ -52,7 +52,8 @@ function afterContentLoad() {
     window.addEventListener('message', function(e){
       // console.log('e origin:',e.origin)
 
-      if(!streamingUrls.includes(e.origin))
+      if(!streamingUrls.includes(e.origin) ||
+        typeof(e.data) !== "string")
         return;
 
       let msg = decryptMsg(e.data)
