@@ -34,7 +34,7 @@ function implementAutoplay () {
   *   addEventListener to the video, fires when video ends. If autoplay is true,
   *   will fire a message to background.js that triggers autoplay.js
   */
-  video.addEventListener('ended', function (e) {
+  video.addEventListener('ended', function () {
     if (enableAutoplay) { window.parent.postMessage('video ended', masteraniURL) }
   }, false)
 }

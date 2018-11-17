@@ -18,6 +18,7 @@ var environment = process.env.NODE_ENV || "development";
 var generic = JSON.parse(fs.readFileSync(`./config/${environment}.json`));
 var specific = JSON.parse(fs.readFileSync(`./config/${target}.json`));
 var context = Object.assign({}, generic, specific);
+const eslint = require('gulp-eslint');
 
 var manifest = {
   dev: {
@@ -77,7 +78,7 @@ gulp.task('ext', ['manifest', 'js'], () => {
 // -----------------
 // COMMON
 // -----------------
-gulp.task('js', () => {
+gulp.task('js', ['lint'], () => {
   return buildJS(target)
 })
 
@@ -173,8 +174,10 @@ function buildJS(target) {
       context: context
     })
     .bundle()
+    
     .pipe(source(file))
     .pipe(buffer())
+    .pipe(eslint.failAfterError())
     .pipe(gulpif(!production, $.sourcemaps.init({ loadMaps: true }) ))
     .pipe(gulpif(!production, $.sourcemaps.write('./') ))
     .pipe(gulpif(production, $.uglify({ 
@@ -183,9 +186,15 @@ function buildJS(target) {
         "ascii_only": true
       } 
     })))
-
     .pipe(gulpif((production && !devFiles.includes(file)) || !production,gulp.dest(`build/${target}/scripts`)));
   });
+  
 
   return merge.apply(null, tasks);
 }
+
+gulp.task("lint", function() {
+  gulp.src('src/scripts/**/*.js')
+    .pipe(eslint())
+    .pipe(eslint.format());
+});

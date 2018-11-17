@@ -63,4 +63,4 @@ function Extension () {
   } catch (e) {}
 }
 
-module.exports = new Extension()
+export default new Extension()

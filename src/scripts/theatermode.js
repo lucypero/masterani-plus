@@ -129,6 +129,9 @@ function cutWElips (string, maxLength) {
   return string
 }
 
-module.exports = () => {
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', afterContentLoad) } else { afterContentLoad() }
+export default function() {
+  if (document.readyState === 'loading') 
+    document.addEventListener('DOMContentLoaded', afterContentLoad)
+  else
+    afterContentLoad()
 }

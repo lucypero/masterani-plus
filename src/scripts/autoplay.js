@@ -1,6 +1,6 @@
 import { getNextEpUrl } from './utils/masteraniUtils'
 
-module.exports = () => {
+export default function autoPlay() {
   window.addEventListener('message', function (e) {
     if (e.data === 'video ended' && e.origin === 'https://mp4upload.com') {
       let newUrl = getNextEpUrl(document)

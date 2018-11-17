@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   addClass (el, className) {
     el.classList.add(className)
   },

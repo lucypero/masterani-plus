@@ -8,9 +8,11 @@
         }
     },
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "no-empty": "off"
     },
     "env": {
-        "browser": true
+        "browser": true,
+        "webextensions": true
     }
 }

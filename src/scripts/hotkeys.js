@@ -1,4 +1,4 @@
-import { streamingUrls, storageVars, defaultHotkeys, messageHash } from './constants'
+import { streamingUrls, storageVars, defaultHotkeys, messageHash} from './constants'
 import storage from './utils/storage'
 import { reverseMap, getKeyComb, decryptMsg } from './utils/utils'
 
@@ -21,6 +21,7 @@ let reverseKeyDict = reverseMap(keyMappings)
  *  default keys
  *
  */
+
 
 export function hotKeys () {
   storage.get(hotkeyKey, function (val) {
@@ -63,7 +64,7 @@ function keyDown (keyEv) {
   // note: you might not get an actual event here, but
   // you'll get these props for sure:
   // key, keyCode, ctrlKey, shiftKey, altKey
-  console.log('all hotkeys:')
+  console.log('all hotkeysasdsad:')
   console.log(keyMappings)
   let keyComb = getKeyComb(keyEv)
   if (reverseKeyDict[keyComb]) { console.log('command to execute:', reverseKeyDict[keyComb]) }
