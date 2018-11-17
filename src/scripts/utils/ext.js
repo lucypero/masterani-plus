@@ -19,14 +19,13 @@ const apis = [
   'tabs',
   'webNavigation',
   'webRequest',
-  'windows',
+  'windows'
 ]
 
 function Extension () {
   const _this = this
 
   apis.forEach(function (api) {
-
     _this[api] = null
 
     try {
@@ -62,7 +61,6 @@ function Extension () {
       this.browserAction = browser.browserAction
     }
   } catch (e) {}
-
 }
 
-module.exports = new Extension();
+module.exports = new Extension()

@@ -1,6 +1,7 @@
 import storage from "./utils/storage";
 import { storageVars } from "./constants";
 import { addEventListener } from "./utils/domTools";
+import { getKeyComb } from "./utils/utils";
 
 //Checkbox ID -> field name in storage
 let storagePairs = {
@@ -30,24 +31,18 @@ document.addEventListener('DOMContentLoaded', restoreOptions);
 
 let hkInputs = document.querySelectorAll('#hotkeys input')
 addEventListener(hkInputs, 'keydown', function(e) {
+
+  let defaultKeys = [27, 9]
+  if(defaultKeys.includes(e.keyCode))
+    return;
+
   e.preventDefault() 
-  let unallowedKeys = [16,17,18,20,9]
+
+  let unallowedKeys = [16, 17, 18, 20, 9]
   if(unallowedKeys.includes(e.keyCode))
     return
 
-  let output = []
-  if(e.ctrlKey) output.push("Ctrl")
-  if(e.altKey) output.push("Alt")
-  if(e.shiftKey) output.push("Shift")
-
-  let res = /^(Key|Digit)(.*)/.exec(e.code)
-  let sanitizedCode = e.code;
-
-  if(res && res[2])
-    sanitizedCode = res[2]
-
-  output.push(sanitizedCode)
-  this.value = output.join('+')
+  this.value = getKeyComb(e)
 
   let command = /^hk-(.*)/.exec(this.id)[1]
   console.log('saving key',this.value,'to command', command)

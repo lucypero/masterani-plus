@@ -1,3 +1,4 @@
+/* eslint-env node */
 import fs from "fs";
 import gulp from 'gulp';
 import {merge} from 'event-stream'
@@ -145,7 +146,7 @@ function mergeAll(dest) {
     pipe([`./src/images/${target}/**/*`], `./build/${dest}/images`),
     pipe(['./src/images/shared/**/*'], `./build/${dest}/images`),
     pipe(['./src/**/*.html'], `./build/${dest}`),
-    pipe(['./src/credits.txt'], `./build/${dest}`),
+    pipe(['./src/credits.txt'], `./build/${dest}`)
   )
 }
 
