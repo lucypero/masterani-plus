@@ -174,7 +174,6 @@ function buildJS(target) {
       context: context
     })
     .bundle()
-    
     .pipe(source(file))
     .pipe(buffer())
     .pipe(eslint.failAfterError())
@@ -196,5 +195,5 @@ function buildJS(target) {
 gulp.task("lint", function() {
   gulp.src('src/scripts/**/*.js')
     .pipe(eslint())
-    .pipe(eslint.format());
+    .pipe(eslint.format())
 });

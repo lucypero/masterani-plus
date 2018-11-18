@@ -59,6 +59,7 @@ document.addEventListener('keydown', (e) => {
     type: encryptMsg('keydown', messageHash),
     value: {
       key: e.key,
+      code: e.code,
       keyCode: e.keyCode,
       ctrlKey: e.ctrlKey,
       shiftKey: e.shiftKey,

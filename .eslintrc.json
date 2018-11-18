@@ -9,7 +9,8 @@
     },
     "rules": {
         "no-console": "off",
-        "no-empty": "off"
+        "no-empty": "off",
+        "no-unused-vars":"warn"
     },
     "env": {
         "browser": true,

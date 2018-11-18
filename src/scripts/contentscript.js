@@ -5,7 +5,7 @@
 import storage from './utils/storage'
 import { hotKeys } from './hotkeys'
 import autoPlay from "./autoplay";
-import theaterMode from './theatermode';
+import TheaterMode from './theatermode';
 
 let idAndEp = window.location.href.substr(37).split('/')
 
@@ -66,6 +66,7 @@ function isEmpty (obj) {
 // autoplay feature
 autoPlay();
 // theater mode feature
-theaterMode();
+let tm = new TheaterMode();
+
 // hotkeys
-hotKeys()
+hotKeys(tm)

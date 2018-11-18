@@ -16,5 +16,6 @@ export const idleTime = 2000
 export const masteraniURL = 'https://www.masterani.me/*'
 export const defaultHotkeys = {
   'next-ep': 'P',
-  'prev-ep': 'O'
+  'prev-ep': 'O',
+  'toggle-th-mode': 'Shift+0'
 }

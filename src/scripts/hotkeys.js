@@ -1,10 +1,27 @@
 import { streamingUrls, storageVars, defaultHotkeys, messageHash} from './constants'
 import storage from './utils/storage'
 import { reverseMap, getKeyComb, decryptMsg } from './utils/utils'
+import { getNextEpUrl, getPrevEpUrl } from './utils/masteraniUtils';
 
 let keyMappings = Object.assign({}, defaultHotkeys)
 const hotkeyKey = storageVars.hotkeys
 let reverseKeyDict = reverseMap(keyMappings)
+let theaterMode;
+let commands = {
+  'next-ep': () => {
+    let url = getNextEpUrl(document)
+    if(url)
+      window.location.href = url;
+  },
+  'prev-ep': () => {
+    let url = getPrevEpUrl(document)
+    if(url)
+      window.location.href = url;
+  },
+  'toggle-th-mode': () => {
+    theaterMode.toggleThMode()
+  }
+}
 
 /**
  *  Data model:
@@ -23,7 +40,8 @@ let reverseKeyDict = reverseMap(keyMappings)
  */
 
 
-export function hotKeys () {
+export function hotKeys (tm) {
+  theaterMode = tm;
   storage.get(hotkeyKey, function (val) {
     if (!val.hasOwnProperty(hotkeyKey)) { return }
     // Here you transform keyMappings so it
@@ -63,9 +81,9 @@ export function hotKeys () {
 function keyDown (keyEv) {
   // note: you might not get an actual event here, but
   // you'll get these props for sure:
-  // key, keyCode, ctrlKey, shiftKey, altKey
-  console.log('all hotkeysasdsad:')
-  console.log(keyMappings)
+  // key, keyCode, code, ctrlKey, shiftKey, altKey, 
+
   let keyComb = getKeyComb(keyEv)
-  if (reverseKeyDict[keyComb]) { console.log('command to execute:', reverseKeyDict[keyComb]) }
+  if (reverseKeyDict[keyComb])
+    commands[reverseKeyDict[keyComb]]()
 }
