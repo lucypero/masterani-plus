@@ -23,3 +23,9 @@ Development build:
 Production Build:
 
 `npm run dist`
+
+#
+
+`node` version used: `v8.11.2`
+
+`npm` version used: `6.4.1`
