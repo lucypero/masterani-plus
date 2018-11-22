@@ -7,3 +7,19 @@ It displays all the shows you visited in Masterani (masterani.me), and clicking 
 Built with [Extension Boilerplate](https://github.com/EmailThis/extension-boilerplate)
 
 Download for [Chrome](https://chrome.google.com/webstore/detail/masterani-plus/mkpblofoehliaooiibgpjmljecplommm) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/masterani-plus/)
+
+### Build
+
+You need `gulp` and `cross-env` installed globally.
+
+For development:
+
+`npm start`
+
+Development build:
+
+`npm run build`
+
+Production Build:
+
+`npm run dist`
