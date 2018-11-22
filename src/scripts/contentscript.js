@@ -41,8 +41,23 @@ if (idAndEp[1] !== '' && !isNaN(epNum)) {
 
     anime.epNum = epNum
     anime.watchedOn = new Date().toISOString()
+    console.log('asddkosadksdak');
+    setAndDeleteLastIfNoSpace(val)    
 
-    storage.set(val)
+    function setAndDeleteLastIfNoSpace(val) {
+      storage.set(val, () => {
+        if(chrome && chrome.runtime && chrome.runtime.lastError &&
+           chrome.runtime.lastError.message === "QUOTA_BYTES_PER_ITEM quota exceeded"){
+          let oldest = Object.keys(val.animeList)[0]
+          for(let key in val.animeList) {
+            if(val.animeList[key].watchedOn < val.animeList[oldest].watchedOn)
+              oldest = key
+          }
+          delete val.animeList[oldest]
+          setAndDeleteLastIfNoSpace(val)
+        }
+      })
+    }
   })
 } else if (epNum === '') {
   // Redirect to latest watched episode

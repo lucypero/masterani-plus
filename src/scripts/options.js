@@ -1,3 +1,4 @@
+import ext from "./utils/ext"
 import storage from "./utils/storage";
 import { storageVars, defaultHotkeys } from "./constants";
 import { getKeyComb, reverseMap } from "./utils/utils";
@@ -50,8 +51,8 @@ document.addEventListener('DOMContentLoaded', restoreOptions);
 
 let hkInputs = document.getElementById('hotkeys')
 hkInputs.addEventListener('keydown', function(e) {
-
-  if(event.target.tagName.toUpperCase() !== 'INPUT')
+  
+  if(e.target.tagName.toUpperCase() !== 'INPUT')
     return
 
   let defaultKeys = [27, 9]
@@ -82,7 +83,34 @@ defaultBtn.addEventListener('click', function(e) {
   resetHotkeys();
   refreshHotkeyDisplay();
 })
-
+// @if env='development'
+let clearStorage = document.getElementById('btn-reset-storage')
+clearStorage.addEventListener('click', () => {
+  ext.storage.sync.clear()
+})
+let clearStorage2 = document.getElementById('btn-reset-storage-local')
+clearStorage2.addEventListener('click', () => {
+  ext.storage.local.clear()
+})
+let populateLocalStorage = document.getElementById('btn-populate-local')
+populateLocalStorage.addEventListener('click', () => {
+  let list = {
+    "365-nhk-ni-youkoso": {
+      "coverImg": "https://cdn.masterani.me/poster/3/3650RhbuJs9.jpg",
+      "name": "NHK ni Youkoso!",
+      "epNum": "2",
+      "watchedOn": "2018-11-19T23:19:34.283Z"
+    },
+    "53-hunter-x-hunter-2011": {
+      "coverImg": "https://cdn.masterani.me/poster/3/536fXSTSZN.jpg",
+      "name": "Hunter x Hunter (2011)",
+      "epNum": "1",
+      "watchedOn": "2018-11-19T23:19:48.367Z"
+    }
+  }
+  ext.storage.local.set({'animeList':list})
+})
+// @endif
 //It removes all custom hotkeys from storage
 function resetHotkeys() {
   storage.set({[storageVars.hotkeys]:{}})

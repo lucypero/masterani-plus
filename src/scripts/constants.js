@@ -15,7 +15,7 @@ export const messageHash = 'bfjbllfm'
 export const idleTime = 2000
 export const masteraniURL = 'https://www.masterani.me/*'
 export const defaultHotkeys = {
-  'next-ep': 'P',
-  'prev-ep': 'O',
-  'toggle-th-mode': 'Shift+0'
+  'next-ep': '',
+  'prev-ep': '',
+  'toggle-th-mode': 'Shift+T'
 }

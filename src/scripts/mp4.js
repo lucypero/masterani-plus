@@ -1,17 +1,13 @@
-// This is the script that runs inside the video iframe on materani
+// This is the script that runs inside the video iframe on masterani
 
 import { storageVars, masteraniURL, messageHash } from './constants'
 import storage from './utils/storage'
 import { encryptMsg } from './utils/utils'
 
-// just testing
-// window.parent.postMessage('injected :thumbsup:', masteraniURL)
-
 /*  AUTOPLAY FEATURE - START  */
-// console.log('url current page:', window.location.href);
 
-// Checking if we're on mp4upload
-if (/^https:\/\/www\.mp4upload\.com\/embed.*/.test()) {
+// Implement Autoplay if we're on mp4upload
+if (/^https:\/\/(www\.|)mp4upload\.com\/embed.*/.test(window.location.href)) {
   implementAutoplay()
 }
 
@@ -35,7 +31,7 @@ function implementAutoplay () {
   *   will fire a message to background.js that triggers autoplay.js
   */
   video.addEventListener('ended', function () {
-    if (enableAutoplay) { window.parent.postMessage('video ended', masteraniURL) }
+    if (enableAutoplay) { window.parent.postMessage(encryptMsg('video ended', messageHash), masteraniURL) }
   }, false)
 }
 

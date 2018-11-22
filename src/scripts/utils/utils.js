@@ -29,7 +29,7 @@ export function getKeyComb (keyEv) {
 
 export function decryptMsg (hashedMsg, hash) {
   let re = new RegExp(`-${hash}$`)
-  if (!re.test(hashedMsg)) { throw "this isn't a valid hashed message" }
+  if (!re.test(hashedMsg)) { return null }
   return hashedMsg.slice(0, -(hash.length + 1))
 }
 

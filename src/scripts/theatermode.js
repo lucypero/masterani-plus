@@ -20,10 +20,10 @@ export default class TheatherMode {
     this.link.rel = 'stylesheet'
     this.link.href = ext['extension'].getURL('styles/theatermode.css')
   
-    storage.get([storageVars.theaterMode], function (result) {
+    storage.get([storageVars.theaterMode], (result) => {
       this.enableTheaterMode = result[storageVars.theaterMode]
       if (this.enableTheaterMode) {
-        this.toggleThMode(true)
+        this.setThMode(true)
       }
     })
   
@@ -59,9 +59,8 @@ export default class TheatherMode {
           typeof (e.data) !== 'string') { return }
   
         let msg = decryptMsg(e.data, messageHash)
-  
-        if (msg === 'mousemove' ||
-           msg === 'keypress') { resetTimer() }
+        if (msg && (msg === 'mousemove' ||
+           msg === 'keypress')) { resetTimer() }
       })
     }
   }
@@ -70,16 +69,17 @@ export default class TheatherMode {
     this.setThMode(!this.thModeToggled)
   }
   
-  setThMode (activate) {
+  setThMode(activate) {
     if (activate) {
       this.head.appendChild(this.link)
       this.appendInfoDiv()
     } else {
       this.head.removeChild(this.link)
-      if (this.infoElement && this.playerElem.contains(this.infoElement)) {
+      if (this.infoElement && this.playerElem.contains(this.infoElement))
         this.playerElem.removeChild(this.infoElement)
-      }
+      // @if extension='chrome'
       document.webkitCancelFullScreen()
+      // @endif
     }
     this.thModeToggled = activate;
   }

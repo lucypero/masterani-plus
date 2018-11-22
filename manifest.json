@@ -25,6 +25,9 @@
       "run_at": "document_idle"
     }
   ],
+  "background": {
+    "scripts": ["scripts/background.js"]
+  },
   "permissions": [
     "storage",
     "activeTab",

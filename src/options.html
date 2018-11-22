@@ -25,11 +25,11 @@
         <legend>Global Settings</legend>
         <div>
             <input id="ch-autoplay" type="checkbox" name="feature" value="autoplay" />
-            <label for="autoplay">Autoplay</label>
+            <label for="autoplay">Autoplay (it only works if you use mp4upload)</label>
         </div>
         <div>
             <input id="ch-theater" type="checkbox" name="feature" value="theater-mode" />
-            <label for="theater-mode">Theater Mode</label>
+            <label for="theater-mode">Theater Mode enabled by default</label>
         </div>
         
       </fieldset>
@@ -49,6 +49,11 @@
           <input type="text" spellcheck="false" id='hk-toggle-th-mode'>
         </div>
         <button id="btn-hk-def">Set Defaults</button>
+        <!-- @if env='development' -->
+        <button id="btn-reset-storage">Clear Storage</button>
+        <button id="btn-reset-storage-local">clear local</button>
+        <button id="btn-populate-local">populate local</button>
+        <!-- @endif -->
       </fieldset>
     </form>
     <script src="scripts/options.js"></script>

@@ -82,8 +82,8 @@ function keyDown (keyEv) {
   // note: you might not get an actual event here, but
   // you'll get these props for sure:
   // key, keyCode, code, ctrlKey, shiftKey, altKey, 
-
   let keyComb = getKeyComb(keyEv)
+  console.log(keyComb)
   if (reverseKeyDict[keyComb])
     commands[reverseKeyDict[keyComb]]()
 }

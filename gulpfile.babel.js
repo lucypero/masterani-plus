@@ -19,6 +19,7 @@ var generic = JSON.parse(fs.readFileSync(`./config/${environment}.json`));
 var specific = JSON.parse(fs.readFileSync(`./config/${target}.json`));
 var context = Object.assign({}, generic, specific);
 const eslint = require('gulp-eslint');
+var preprocess = require('gulp-preprocess')
 
 var manifest = {
   dev: {
@@ -70,9 +71,15 @@ gulp.task('watch', ['build'], () => {
 
 gulp.task('default', ['build']);
 
-gulp.task('ext', ['manifest', 'js'], () => {
+gulp.task('ext', ['manifest', 'js', 'html'], () => {
   return mergeAll(target)
 });
+
+gulp.task('html', () => {
+  return gulp.src('src/*.html')
+    .pipe(preprocess({context:context}))
+    .pipe(gulp.dest(`build/${target}`))
+})
 
 
 // -----------------
@@ -146,7 +153,7 @@ function mergeAll(dest) {
     pipe(['./src/_locales/**/*'], `./build/${dest}/_locales`),
     pipe([`./src/images/${target}/**/*`], `./build/${dest}/images`),
     pipe(['./src/images/shared/**/*'], `./build/${dest}/images`),
-    pipe(['./src/**/*.html'], `./build/${dest}`),
+    // pipe(['./src/**/*.html'], `./build/${dest}`),
     pipe(['./src/credits.txt'], `./build/${dest}`)
   )
 }
@@ -156,7 +163,8 @@ function buildJS(target) {
     'contentscript.js',
     'popup.js',
     'mp4.js',
-    'options.js'
+    'options.js',
+    'background.js'
   ]
   const devFiles = [
     'debug/debug-bg.js',
@@ -183,7 +191,10 @@ function buildJS(target) {
       "mangle": false,
       "output": {
         "ascii_only": true
-      } 
+      },
+      "compress": {
+        drop_console: true
+      }
     })))
     .pipe(gulpif((production && !devFiles.includes(file)) || !production,gulp.dest(`build/${target}/scripts`)));
   });

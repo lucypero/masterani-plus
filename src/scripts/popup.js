@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (animeList) { keys = Object.keys(animeList) }
 
+    console.log(keys.length)
+
     if (!animeList || keys.length === 0) {
       var emptyTempl = document.getElementById('empty-list')
       aniList.innerHTML = emptyTempl.innerHTML
