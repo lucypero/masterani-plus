@@ -208,3 +208,9 @@ gulp.task("lint", function() {
     .pipe(eslint())
     .pipe(eslint.format())
 });
+
+//Zips source for firefox addon store
+gulp.task('source', function() {
+  // return pipe(`./build/${target}/**/*`, $.zip(`${target}.zip`), './dist')
+  return pipe([`./**/*`,'!./{node_modules/,node_modules/**/*,build/,build/**/*,dist/,dist/**/*,docs/,docs/**/*}'], $.zip(`source.zip`), './dist')
+});
