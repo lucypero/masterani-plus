@@ -18,7 +18,7 @@ export default class TheatherMode {
     this.link = document.createElement('link')
     this.link.type = 'text/css'
     this.link.rel = 'stylesheet'
-    this.link.href = ext['extension'].getURL('styles/theatermode.css')
+    this.link.href = ext.extension.getURL('styles/theatermode.css')
   
     storage.get([storageVars.theaterMode], (result) => {
       this.enableTheaterMode = result[storageVars.theaterMode]
