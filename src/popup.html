@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Your Anime</title>
+    <link href="styles/popup.css" rel="stylesheet">
+</head>
+<body>
+    <ul id="an-list">
+        <!--Generated list items will go here-->
+    </ul>
+
+    <!-- debugging -->
+    <!-- <div id="clear">Clear storage</div>
+    <div id="object-log"></div> -->
+    <!-- /debugging -->
+
+    <script id="template-anime-item" type="text/template">
+        <li>
+            <a href="{{url}}" target="_blank">
+                <div class="anime">
+                    <div class="cover-img"><div class="placeholder"></div><img src="{{coverImg}}"></div>
+                    <div class="name-ep">
+                        <div class="name">{{name}}</div>
+                        <div class="ep">Episode {{ep}}</div>
+                    </div>
+                </div>
+            </a>
+            <div class="delete" data-anime-name="{{animeID}}"><img src="./images/cancel.svg" alt=""></div>
+        </li>
+    </script>
+    <script id="empty-list" type="text/template">
+        <li class="empty-msg">
+            There are no anime on your list yet... Why don't you go to <a href="https://www.masterani.me/" target="_blank">Masterani.me</a> and start watching some? :)
+        </li>
+    </script>
+    <script src="scripts/popup.js"></script>
+</body>
+</html>

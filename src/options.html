@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <style>
+      div {
+        display: flex;
+        margin: 5px 0;
+      }
+      input[type="checkbox"] {
+        margin-right: 5px;
+      }
+      .set-hotkey {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form>
+      <fieldset>
+        <legend>Global Settings</legend>
+        <div>
+            <input id="ch-autoplay" type="checkbox" name="feature" value="autoplay" />
+            <label for="autoplay">Autoplay (it only works if you use mp4upload)</label>
+        </div>
+        <div>
+            <input id="ch-theater" type="checkbox" name="feature" value="theater-mode" />
+            <label for="theater-mode">Theater Mode enabled by default</label>
+        </div>
+        
+      </fieldset>
+      <br>
+      <fieldset id="hotkeys">
+        <legend>Hotkey Mappings</legend>
+        <div class="set-hotkey">
+          <label for="hk-next-ep">Go to Previous Episode:</label>
+          <input type="text" spellcheck="false" id='hk-prev-ep'>
+        </div>
+        <div class="set-hotkey">
+          <label for="hk-next-ep">Go to Next Episode:</label>
+          <input type="text" spellcheck="false" id='hk-next-ep'>
+        </div>
+        <div class="set-hotkey">
+          <label for="hk-toggle-th-mode">Toggle Theater Mode:</label>
+          <input type="text" spellcheck="false" id='hk-toggle-th-mode'>
+        </div>
+        <button id="btn-hk-def">Set Defaults</button>
+        <!-- @if env='development' -->
+        <button id="btn-reset-storage">Clear Storage</button>
+        <button id="btn-reset-storage-local">clear local</button>
+        <button id="btn-populate-local">populate local</button>
+        <!-- @endif -->
+      </fieldset>
+    </form>
+    <script src="scripts/options.js"></script>
+  </body>
+</html>
