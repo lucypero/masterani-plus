@@ -1,0 +1,10 @@
+{
+    "appName": {
+        "message": "Masterani Plus",
+        "description": "The title of the application, displayed in the web store."
+    },
+    "appDesc": {
+        "message": "Masterani Anime helper extension. It tracks the anime you watch, and it remembers the last episode you watched of each show. Extremely useful for resuming watching the shows you started.", 
+        "description":"The description of the application, displayed in the web store."
+    }
+}

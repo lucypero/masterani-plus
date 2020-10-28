@@ -1,0 +1,2 @@
+- Cross icon made by https://www.flaticon.com/authors/maxim-basinski from www.flaticon.com
+- Thanks to septomor for the ideas of autoplay and theater mode, and their initial implementations
